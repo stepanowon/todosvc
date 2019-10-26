@@ -6,6 +6,8 @@ var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 var _cors = _interopRequireDefault(require("cors"));
 
+var _morgan = _interopRequireDefault(require("morgan"));
+
 var _path = _interopRequireDefault(require("path"));
 
 var _fs = _interopRequireDefault(require("fs"));
@@ -37,7 +39,7 @@ var accessLogStream = (0, _rotatingFileStream["default"])('access.log', {
   // 매일 매일 로그 파일 생성
   path: logDirectory
 });
-app.use((0, _cors["default"])('combined', {
+app.use((0, _morgan["default"])('combined', {
   stream: accessLogStream
 }));
 app.set('port', process.env.PORT || 3000);
