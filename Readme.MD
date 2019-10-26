@@ -11,4 +11,4 @@ npm run build
 npm run start
 ----------------------------------------
 ## 사용방법 확인
-*http://localhost:3000 에서 오른쪽 사이트 메뉴 확인
+* http://localhost:3000 에서 오른쪽 사이트 메뉴 확인
