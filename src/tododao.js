@@ -9,15 +9,15 @@ let databaseInitialize= () => {
     if (todolist === null) {
         todolist = db.addCollection('todolist', { indices: ['owner','no'] });
         //샘플 데이터
-        todolist.insert( { owner:'gdhong', no:123456789, todo:"ES6 공부", desc:"ES6공부를 해야 합니다", done:false });
+        todolist.insert( { owner:'gdhong', no:123456789, todo:"ES6 공부", desc:"ES6공부를 해야 합니다", done:true });
         todolist.insert( { owner:'gdhong', no:no++, todo:"Vue 학습", desc:"Vue 학습을 해야 합니다", done:false });
-        todolist.insert( { owner:'gdhong', no:no++, todo:"놀기", desc:"노는 것도 중요합니다.", done:false });
+        todolist.insert( { owner:'gdhong', no:no++, todo:"놀기", desc:"노는 것도 중요합니다.", done:true });
         todolist.insert( { owner:'gdhong', no:no++, todo:"야구장", desc:"프로야구 경기도 봐야합니다.", done:false });
     
-        todolist.insert( { owner:'mrlee', no:no++, todo:"남원구경", desc:"고향집에 가봐야합니다.", done:false });
+        todolist.insert( { owner:'mrlee', no:no++, todo:"남원구경", desc:"고향집에 가봐야합니다.", done:true });
         todolist.insert( { owner:'mrlee', no:no++, todo:"저녁약속(10.11)", desc:"지인과의 중요한 저녁 약속입니다.", done:false });
         todolist.insert( { owner:'mrlee', no:no++, todo:"AWS 밋업", desc:"AWS 밋업에 반드시 참석해야 합니다.", done:false });
-        todolist.insert( { owner:'mrlee', no:no++, todo:"AAI 모임", desc:"공인강사들 모임이 있습니다.", done:false });
+        todolist.insert( { owner:'mrlee', no:no++, todo:"AAI 모임", desc:"공인강사들 모임이 있습니다.", done:true });
     }
 }
 
@@ -33,7 +33,7 @@ export const createNewOwner = ({ owner }) => {
     try {
         let queryResult = todolist.find({ owner });
         if (queryResult.length === 0) {
-            todolist.insert( { owner, no:123456787, todo:"ES6 공부", desc:"ES6공부를 해야 합니다", done:false });
+            todolist.insert( { owner, no:123456787, todo:"ES6 공부", desc:"ES6공부를 해야 합니다", done:true });
             todolist.insert( { owner, no:123456788, todo:"Vue 학습", desc:"Vue 학습을 해야 합니다", done:false });
             todolist.insert( { owner, no:123456789, todo:"야구장", desc:"프로야구 경기도 봐야합니다.", done:false });
             return { status:"success", message:"샘플 데이터 생성 성공!" };
