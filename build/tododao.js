@@ -33,7 +33,7 @@ var databaseInitialize = function databaseInitialize() {
       no: 123456789,
       todo: "ES6 공부",
       desc: "ES6공부를 해야 합니다",
-      done: false
+      done: true
     });
     todolist.insert({
       owner: 'gdhong',
@@ -47,7 +47,7 @@ var databaseInitialize = function databaseInitialize() {
       no: no++,
       todo: "놀기",
       desc: "노는 것도 중요합니다.",
-      done: false
+      done: true
     });
     todolist.insert({
       owner: 'gdhong',
@@ -61,7 +61,7 @@ var databaseInitialize = function databaseInitialize() {
       no: no++,
       todo: "남원구경",
       desc: "고향집에 가봐야합니다.",
-      done: false
+      done: true
     });
     todolist.insert({
       owner: 'mrlee',
@@ -82,7 +82,7 @@ var databaseInitialize = function databaseInitialize() {
       no: no++,
       todo: "AAI 모임",
       desc: "공인강사들 모임이 있습니다.",
-      done: false
+      done: true
     });
   }
 };
@@ -108,7 +108,7 @@ var createNewOwner = function createNewOwner(_ref) {
         no: 123456787,
         todo: "ES6 공부",
         desc: "ES6공부를 해야 합니다",
-        done: false
+        done: true
       });
       todolist.insert({
         owner: owner,

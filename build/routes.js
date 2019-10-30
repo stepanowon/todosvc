@@ -35,11 +35,32 @@ var _default = function _default(app) {
     });
     res.json(todolist);
   });
+  app.get('/todolist_long/:owner', function (req, res) {
+    console.log("### GET /todolist_long/:owner");
+    (0, _systemSleep["default"])(1000);
+    var owner = req.params.owner;
+    var todolist = (0, _tododao.getTodoList)({
+      owner: owner
+    });
+    res.json(todolist);
+  });
   app.get('/todolist/:owner/:no', function (req, res) {
     console.log("### GET /todolist/:owner/:no");
     var _req$params = req.params,
         owner = _req$params.owner,
         no = _req$params.no;
+    var todoitem = (0, _tododao.getTodoItem)({
+      owner: owner,
+      no: no
+    });
+    res.json(todoitem);
+  });
+  app.get('/todolist_long/:owner/:no', function (req, res) {
+    console.log("### GET /todolist_long/:owner/:no");
+    (0, _systemSleep["default"])(1000);
+    var _req$params2 = req.params,
+        owner = _req$params2.owner,
+        no = _req$params2.no;
     var todoitem = (0, _tododao.getTodoItem)({
       owner: owner,
       no: no
@@ -59,15 +80,48 @@ var _default = function _default(app) {
     });
     res.json(result);
   });
-  app.put('/todolist/:owner/:no', function (req, res) {
-    console.log("### PUT /todolist/:owner/:no");
-    var _req$params2 = req.params,
-        owner = _req$params2.owner,
-        no = _req$params2.no;
+  app.post('/todolist_long/:owner', function (req, res) {
+    console.log("### POST /todolist_long/:owner");
+    (0, _systemSleep["default"])(1000);
+    var owner = req.params.owner;
     var _req$body2 = req.body,
         todo = _req$body2.todo,
-        done = _req$body2.done,
         desc = _req$body2.desc;
+    var result = (0, _tododao.addTodo)({
+      owner: owner,
+      todo: todo,
+      desc: desc
+    });
+    res.json(result);
+  });
+  app.put('/todolist/:owner/:no', function (req, res) {
+    console.log("### PUT /todolist/:owner/:no");
+    var _req$params3 = req.params,
+        owner = _req$params3.owner,
+        no = _req$params3.no;
+    var _req$body3 = req.body,
+        todo = _req$body3.todo,
+        done = _req$body3.done,
+        desc = _req$body3.desc;
+    var result = (0, _tododao.updateTodo)({
+      owner: owner,
+      no: no,
+      todo: todo,
+      done: done,
+      desc: desc
+    });
+    res.json(result);
+  });
+  app.put('/todolist_long/:owner/:no', function (req, res) {
+    console.log("### PUT /todolist_long/:owner/:no");
+    (0, _systemSleep["default"])(1000);
+    var _req$params4 = req.params,
+        owner = _req$params4.owner,
+        no = _req$params4.no;
+    var _req$body4 = req.body,
+        todo = _req$body4.todo,
+        done = _req$body4.done,
+        desc = _req$body4.desc;
     var result = (0, _tododao.updateTodo)({
       owner: owner,
       no: no,
@@ -78,10 +132,22 @@ var _default = function _default(app) {
     res.json(result);
   });
   app.put('/todolist/:owner/:no/done', function (req, res) {
-    console.log("### PUT /todolist/:owner/:no");
-    var _req$params3 = req.params,
-        owner = _req$params3.owner,
-        no = _req$params3.no;
+    console.log("### PUT /todolist/:owner/:no/done");
+    var _req$params5 = req.params,
+        owner = _req$params5.owner,
+        no = _req$params5.no;
+    var result = (0, _tododao.toggleDone)({
+      owner: owner,
+      no: no
+    });
+    res.json(result);
+  });
+  app.put('/todolist_long/:owner/:no/done', function (req, res) {
+    console.log("### PUT /todolist_long/:owner/:no/done");
+    (0, _systemSleep["default"])(1000);
+    var _req$params6 = req.params,
+        owner = _req$params6.owner,
+        no = _req$params6.no;
     var result = (0, _tododao.toggleDone)({
       owner: owner,
       no: no
@@ -90,35 +156,26 @@ var _default = function _default(app) {
   });
   app["delete"]('/todolist/:owner/:no', function (req, res) {
     console.log("### DELETE /todolist/:owner/:no");
-    var _req$params4 = req.params,
-        owner = _req$params4.owner,
-        no = _req$params4.no;
+    var _req$params7 = req.params,
+        owner = _req$params7.owner,
+        no = _req$params7.no;
     var result = (0, _tododao.deleteTodo)({
       owner: owner,
       no: no
     });
     res.json(result);
   });
-  app.get('/todolist_long/:owner', function (req, res) {
-    console.log("### GET /todolist_long/:owner");
+  app["delete"]('/todolist_long/:owner/:no', function (req, res) {
+    console.log("### DELETE /todolist_long/:owner/:no");
     (0, _systemSleep["default"])(1000);
-    var owner = req.params.owner;
-    var todolist = (0, _tododao.getTodoList)({
-      owner: owner
-    });
-    res.json(todolist);
-  });
-  app.get('/todolist_long/:owner/:no', function (req, res) {
-    console.log("### GET /todolist_long/:owner/:no");
-    (0, _systemSleep["default"])(1000);
-    var _req$params5 = req.params,
-        owner = _req$params5.owner,
-        no = _req$params5.no;
-    var todoitem = (0, _tododao.getTodoItem)({
+    var _req$params8 = req.params,
+        owner = _req$params8.owner,
+        no = _req$params8.no;
+    var result = (0, _tododao.deleteTodo)({
       owner: owner,
       no: no
     });
-    res.json(todoitem);
+    res.json(result);
   }); //----에러 처리 시작
 
   app.get('*', function (req, res, next) {
