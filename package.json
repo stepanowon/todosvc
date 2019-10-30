@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev" : "nodemon --exec babel-node src/server.js",
-    "build" : "babel src -d build",
-    "start" : "node build/server.js"
-
+    "start:dev": "nodemon --exec babel-node src/server.js",
+    "build": "babel src -d build",
+    "start": "node build/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +24,7 @@
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "lokijs": "^1.5.7",
+    "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "rotating-file-stream": "^1.4.6",
     "shortid": "^2.2.15",
