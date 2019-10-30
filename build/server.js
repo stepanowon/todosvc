@@ -42,7 +42,7 @@ var accessLogStream = (0, _rotatingFileStream["default"])('access.log', {
 app.use((0, _morgan["default"])('combined', {
   stream: accessLogStream
 }));
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8000);
 app.use(_express["default"]["static"](baseDir + '/public'));
 console.log(baseDir + '/views');
 app.set('views', baseDir + '/views');
