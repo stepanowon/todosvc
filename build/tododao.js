@@ -151,6 +151,8 @@ var getTodoList = function getTodoList(_ref2) {
     var result = [];
     var queryResult = todolist.find({
       owner: owner
+    }).sort({
+      no: -1
     });
 
     for (var i = 0; i < queryResult.length; i++) {

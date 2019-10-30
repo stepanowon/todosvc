@@ -49,7 +49,7 @@ export const createNewOwner = ({ owner }) => {
 export const getTodoList = ({ owner }) => {
     try {
         let result = [];
-        let queryResult = todolist.find({ owner });
+        let queryResult = todolist.chain().find({ owner }).simplesort('no').data();
 
         for (var i=0; i < queryResult.length; i++) {
             let item = { ...queryResult[i]};
