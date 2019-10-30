@@ -392,3 +392,8 @@
 ::1 - - [30/Oct/2019:13:57:41 +0000] "GET /js/jquery.js HTTP/1.1" 200 95788 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
 ::1 - - [30/Oct/2019:13:57:41 +0000] "GET /img/bg.jpg HTTP/1.1" 200 158488 "http://localhost:8000/css/stylish-portfolio.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
 ::1 - - [30/Oct/2019:13:57:41 +0000] "GET /font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0 HTTP/1.1" 200 56780 "http://localhost:8000/font-awesome/css/font-awesome.min.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+::1 - - [30/Oct/2019:14:00:53 +0000] "GET /todolist/gdhong HTTP/1.1" 200 374 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+::1 - - [30/Oct/2019:14:00:58 +0000] "POST /todolist/gdhong HTTP/1.1" 200 141 "-" "PostmanRuntime/7.19.0"
+::1 - - [30/Oct/2019:14:01:00 +0000] "GET /todolist/gdhong HTTP/1.1" 200 475 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+::1 - - [30/Oct/2019:14:01:15 +0000] "GET /todolist/gdhong HTTP/1.1" 200 374 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+::1 - - [30/Oct/2019:14:02:23 +0000] "GET /todolist/gdhong HTTP/1.1" 200 374 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
