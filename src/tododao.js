@@ -34,7 +34,7 @@ todolist = db.getCollection("todolist");
 if (todolist === null) {
     todolist = db.addCollection('todolist', { indices: ['owner','id'] });
 }
-todolist.insert( { owner:'gdhong', id:id, todo:"ES6 공부", desc:"ES6공부를 해야 합니다", done:true });
+todolist.insert( { owner:'gdhong', id:123456789, todo:"ES6 공부", desc:"ES6공부를 해야 합니다", done:true });
 todolist.insert( { owner:'gdhong', id:++id, todo:"Vue 학습", desc:"Vue 학습을 해야 합니다", done:false });
 todolist.insert( { owner:'gdhong', id:++id, todo:"놀기", desc:"노는 것도 중요합니다.", done:true });
 todolist.insert( { owner:'gdhong', id:++id, todo:"야구장", desc:"프로야구 경기도 봐야합니다.", done:false });

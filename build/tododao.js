@@ -51,7 +51,7 @@ if (todolist === null) {
 
 todolist.insert({
   owner: 'gdhong',
-  id: id,
+  id: 123456789,
   todo: "ES6 공부",
   desc: "ES6공부를 해야 합니다",
   done: true
