@@ -13,12 +13,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var todolist;
-var no = new Date().getTime(); // let databaseInitialize= () => {
+var id = new Date().getTime(); // let databaseInitialize= () => {
 //     todolist = db.getCollection("todolist");
 //     if (todolist === null) {
 //         todolist = db.addCollection('todolist', { indices: ['owner','no'] });
@@ -45,62 +45,62 @@ todolist = db.getCollection("todolist");
 
 if (todolist === null) {
   todolist = db.addCollection('todolist', {
-    indices: ['owner', 'no']
+    indices: ['owner', 'id']
   });
 }
 
 todolist.insert({
   owner: 'gdhong',
-  no: 123456789,
+  id: id,
   todo: "ES6 공부",
   desc: "ES6공부를 해야 합니다",
   done: true
 });
 todolist.insert({
   owner: 'gdhong',
-  no: no++,
+  id: ++id,
   todo: "Vue 학습",
   desc: "Vue 학습을 해야 합니다",
   done: false
 });
 todolist.insert({
   owner: 'gdhong',
-  no: no++,
+  id: ++id,
   todo: "놀기",
   desc: "노는 것도 중요합니다.",
   done: true
 });
 todolist.insert({
   owner: 'gdhong',
-  no: no++,
+  id: ++id,
   todo: "야구장",
   desc: "프로야구 경기도 봐야합니다.",
   done: false
 });
 todolist.insert({
   owner: 'mrlee',
-  no: no++,
+  id: ++id,
   todo: "남원구경",
   desc: "고향집에 가봐야합니다.",
   done: true
 });
 todolist.insert({
   owner: 'mrlee',
-  no: no++,
+  id: ++id,
   todo: "저녁약속(10.11)",
   desc: "지인과의 중요한 저녁 약속입니다.",
   done: false
 });
 todolist.insert({
   owner: 'mrlee',
-  no: no++,
+  id: ++id,
   todo: "AWS 밋업",
   desc: "AWS 밋업에 반드시 참석해야 합니다.",
   done: false
 });
 todolist.insert({
   owner: 'mrlee',
-  no: no++,
+  id: ++id,
   todo: "AAI 모임",
   desc: "공인강사들 모임이 있습니다.",
   done: true
@@ -114,24 +114,26 @@ var createNewOwner = function createNewOwner(_ref) {
       owner: owner
     });
 
+    var _id = new Date().getTime();
+
     if (queryResult.length === 0) {
       todolist.insert({
         owner: owner,
-        no: 123456787,
+        id: _id,
         todo: "ES6 공부",
         desc: "ES6공부를 해야 합니다",
         done: true
       });
       todolist.insert({
         owner: owner,
-        no: 123456788,
+        id: ++_id,
         todo: "Vue 학습",
         desc: "Vue 학습을 해야 합니다",
         done: false
       });
       todolist.insert({
         owner: owner,
-        no: 123456789,
+        id: ++_id,
         todo: "야구장",
         desc: "프로야구 경기도 봐야합니다.",
         done: false
@@ -163,7 +165,7 @@ var getTodoList = function getTodoList(_ref2) {
     var result = [];
     var queryResult = todolist.chain().find({
       owner: owner
-    }).simplesort('no').data();
+    }).simplesort('id').data();
 
     for (var i = 0; i < queryResult.length; i++) {
       var item = _objectSpread({}, queryResult[i]);
@@ -187,13 +189,13 @@ exports.getTodoList = getTodoList;
 
 var getTodoItem = function getTodoItem(_ref3) {
   var owner = _ref3.owner,
-      no = _ref3.no;
+      id = _ref3.id;
 
   try {
-    no = parseInt(no);
+    id = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
-      no: no
+      id: id
     });
 
     var item = _objectSpread({}, one);
@@ -224,7 +226,7 @@ var addTodo = function addTodo(_ref4) {
 
     var item = {
       owner: owner,
-      no: new Date().getTime(),
+      id: new Date().getTime(),
       todo: todo,
       desc: desc,
       done: false
@@ -234,7 +236,7 @@ var addTodo = function addTodo(_ref4) {
       status: "success",
       message: "추가 성공",
       item: {
-        no: item.no,
+        id: item.id,
         todo: item.todo,
         desc: item.desc
       }
@@ -251,13 +253,13 @@ exports.addTodo = addTodo;
 
 var deleteTodo = function deleteTodo(_ref5) {
   var owner = _ref5.owner,
-      no = _ref5.no;
+      id = _ref5.id;
 
   try {
-    no = parseInt(no);
+    id = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
-      no: no
+      id: id
     });
 
     if (one !== null) {
@@ -266,7 +268,7 @@ var deleteTodo = function deleteTodo(_ref5) {
         status: "success",
         message: "삭제 성공",
         item: {
-          no: one.no,
+          id: one.id,
           todo: one.todo
         }
       };
@@ -288,16 +290,16 @@ exports.deleteTodo = deleteTodo;
 
 var updateTodo = function updateTodo(_ref6) {
   var owner = _ref6.owner,
-      no = _ref6.no,
+      id = _ref6.id,
       todo = _ref6.todo,
       desc = _ref6.desc,
       done = _ref6.done;
 
   try {
-    no = parseInt(no);
+    id = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
-      no: no
+      id: id
     });
 
     if (one !== null) {
@@ -309,7 +311,7 @@ var updateTodo = function updateTodo(_ref6) {
         status: "success",
         message: "할일 변경 성공",
         item: {
-          no: one.no,
+          id: one.id,
           todo: one.todo,
           desc: one.desc,
           done: one.done
@@ -333,13 +335,13 @@ exports.updateTodo = updateTodo;
 
 var toggleDone = function toggleDone(_ref7) {
   var owner = _ref7.owner,
-      no = _ref7.no;
+      id = _ref7.id;
 
   try {
-    no = parseInt(no);
+    id = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
-      no: no
+      id: id
     });
 
     if (one !== null) {
@@ -349,7 +351,7 @@ var toggleDone = function toggleDone(_ref7) {
         status: "success",
         message: "완료 변경 성공",
         item: {
-          no: one.no,
+          id: one.id,
           todo: one.todo,
           done: one.done
         }

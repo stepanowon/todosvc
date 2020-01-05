@@ -32,19 +32,19 @@
                 <a href="#a1" onclick=$("#menu-close").click();>GET /todolist/:owner</a>
             </li>
             <li>
-                <a href="#a2" onclick=$("#menu-close").click();>GET /todolist/:owner/:no</a>
+                <a href="#a2" onclick=$("#menu-close").click();>GET /todolist/:owner/:id</a>
             </li>
             <li>
                 <a href="#a3" onclick=$("#menu-close").click();>POST /todolist/:owner</a>
             </li>
             <li>
-                <a href="#a4" onclick=$("#menu-close").click();>PUT /todolist/:owner/:no</a>
+                <a href="#a4" onclick=$("#menu-close").click();>PUT /todolist/:owner/:id</a>
             </li>
             <li>
-                <a href="#a5" onclick=$("#menu-close").click();>PUT /todolist/:owner/:no/done</a>
+                <a href="#a5" onclick=$("#menu-close").click();>PUT /todolist/:owner/:id/done</a>
             </li>
             <li>
-                <a href="#a6" onclick=$("#menu-close").click();>DELETE /todolist/:owner/:no</a>
+                <a href="#a6" onclick=$("#menu-close").click();>DELETE /todolist/:owner/:id</a>
             </li>
             <li>
                 <a href="#a7" onclick=$("#menu-close").click();>GET /todolist/:owner/create</a>
@@ -111,7 +111,7 @@
     <aside  id="a2" class="call-to-action bg-primary">
         <div class="container">
             <div class="row">
-                    <h3>2. GET /todolist/:owner/:no</h3>
+                    <h3>2. GET /todolist/:owner/:id</h3>
             </div>
         </div>
     </aside>
@@ -125,7 +125,7 @@
                         <div>- 전달 파라미터</div>
                         <ul>
                             <li>:owner : 소유자</li>
-                            <li>:no : 할일 목록 고유 번호</li>
+                            <li>:id : 할일 목록 고유 번호</li>
                         </ul>
                         <div>- 요청 형식</div>
                         <ul>
@@ -203,12 +203,12 @@
     <aside  id="a4" class="call-to-action bg-primary">
         <div class="container">
             <div class="row">
-                    <h3>4. PUT /todolist/:owner/:no</h3>
+                    <h3>4. PUT /todolist/:owner/:id</h3>
             </div>
         </div>
     </aside>
 
-<!-- PUT /contacts/:no -->
+<!-- PUT /contacts/:id -->
     <section class="about">
         <div class="container">
             <div class="row">
@@ -218,7 +218,7 @@
                         <div>- 전달 파라미터</div>
                         <ul>
                             <li>:owner : 소유자 식별 정보</li>
-                            <li>:no : 할일 일련 번호</li>
+                            <li>:id : 할일 일련 번호</li>
                             <li>todo : 할일</li>
                             <li>desc : 할일에 대한 설명정보</li>
                             <li>done : 완료여부</li>
@@ -259,7 +259,7 @@
     <aside id="a5" class="call-to-action bg-primary">
         <div class="container">
             <div class="row">
-                    <h3>5. PUT /todolist/:owner/:no/done</h3>
+                    <h3>5. PUT /todolist/:owner/:id/done</h3>
             </div>
         </div>
     </aside>
@@ -273,7 +273,7 @@
                         <div>- 전달 파라미터</div>
                         <ul>
                             <li>:owner : 소유자 식별 정보</li>
-                            <li>:no : 할일 일련 번호</li>
+                            <li>:id : 할일 일련 번호</li>
                         </ul>
                         <div>- 요청 형식</div>
                         <ul>
@@ -307,7 +307,7 @@
     <aside id="a6"  class="call-to-action bg-primary">
         <div class="container">
             <div class="row">
-                    <h3>6. DELETE /todolist/:owner/:no</h3>
+                    <h3>6. DELETE /todolist/:owner/:id</h3>
             </div>
         </div>
     </aside>
@@ -321,7 +321,7 @@
                         <div>- 전달 파라미터</div>
                         <ul>
                             <li>:owner : 소유자 식별 정보</li>
-                            <li>:no : 할일 일련 번호</li>
+                            <li>:id : 할일 일련 번호</li>
                         </ul>
                         <div>- 응답데이터 형식(성공)</div>
                         <pre>

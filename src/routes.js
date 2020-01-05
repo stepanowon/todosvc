@@ -1,5 +1,5 @@
 import { addTodo,deleteTodo,updateTodo,toggleDone,getTodoItem, getTodoList,createNewOwner } from './tododao';
-import sleep from 'system-sleep';
+import sleep from 'sleep-promise';
 
 export default (app) => { 
 
@@ -26,24 +26,26 @@ export default (app) => {
     });
     app.get('/todolist_long/:owner', (req, res) => {
         console.log("### GET /todolist_long/:owner");
-        sleep(1000);
-        const owner = req.params.owner;
-        const todolist = getTodoList({ owner });
-        res.json(todolist)
+        sleep(1000).then(() => {
+            const owner = req.params.owner;
+            const todolist = getTodoList({ owner });
+            res.json(todolist)
+        })
     });
 
-    app.get('/todolist/:owner/:no', (req, res) => {
-        console.log("### GET /todolist/:owner/:no");
-        const { owner, no } = req.params;
-        const todoitem = getTodoItem({ owner, no });
+    app.get('/todolist/:owner/:id', (req, res) => {
+        console.log("### GET /todolist/:owner/:id");
+        const { owner, id } = req.params;
+        const todoitem = getTodoItem({ owner, id });
         res.json(todoitem)
     });
-    app.get('/todolist_long/:owner/:no', (req, res) => {
-        console.log("### GET /todolist_long/:owner/:no");
-        sleep(1000);
-        const { owner, no } = req.params;
-        const todoitem = getTodoItem({ owner, no });
-        res.json(todoitem)
+    app.get('/todolist_long/:owner/:id', (req, res) => {
+        console.log("### GET /todolist_long/:owner/:id");
+        sleep(1000).then(() => { 
+            const { owner, id } = req.params;
+            const todoitem = getTodoItem({ owner, id });
+            res.json(todoitem)
+        })
     });
 
     app.post('/todolist/:owner', (req,res)=>{
@@ -56,58 +58,62 @@ export default (app) => {
 
     app.post('/todolist_long/:owner', (req,res)=>{
         console.log("### POST /todolist_long/:owner");
-        sleep(1000);
-        const { owner } = req.params;
-        let { todo, desc } = req.body;
-        const result = addTodo({ owner, todo, desc });
-        res.json(result);
+        sleep(1000).then(() => { 
+            const { owner } = req.params;
+            let { todo, desc } = req.body;
+            const result = addTodo({ owner, todo, desc });
+            res.json(result);
+        })
     })
 
-    app.put('/todolist/:owner/:no', (req,res)=>{
-        console.log("### PUT /todolist/:owner/:no");
-        const { owner, no } = req.params;
+    app.put('/todolist/:owner/:id', (req,res)=>{
+        console.log("### PUT /todolist/:owner/:id");
+        const { owner, id } = req.params;
         let { todo, done, desc } = req.body;
-        const result = updateTodo({ owner, no, todo, done, desc });
+        const result = updateTodo({ owner, id, todo, done, desc });
         res.json(result);
     })
 
-    app.put('/todolist_long/:owner/:no', (req,res)=>{
-        console.log("### PUT /todolist_long/:owner/:no");
-        sleep(1000);
-        const { owner, no } = req.params;
-        let { todo, done, desc } = req.body;
-        const result = updateTodo({ owner, no, todo, done, desc });
+    app.put('/todolist_long/:owner/:id', (req,res)=>{
+        console.log("### PUT /todolist_long/:owner/:id");
+        sleep(1000).then(() => { 
+            const { owner, id } = req.params;
+            let { todo, done, desc } = req.body;
+            const result = updateTodo({ owner, id, todo, done, desc });
+            res.json(result);
+        })
+    })
+
+    app.put('/todolist/:owner/:id/done', (req,res)=>{
+        console.log("### PUT /todolist/:owner/:nido/done");
+        const { owner, id } = req.params;
+        const result = toggleDone({ owner, id });
         res.json(result);
     })
 
-    app.put('/todolist/:owner/:no/done', (req,res)=>{
-        console.log("### PUT /todolist/:owner/:no/done");
-        const { owner, no } = req.params;
-        const result = toggleDone({ owner, no });
+    app.put('/todolist_long/:owner/:id/done', (req,res)=>{
+        console.log("### PUT /todolist_long/:owner/:id/done");
+        sleep(1000).then(() => { 
+            const { owner, id } = req.params;
+            const result = toggleDone({ owner, id });
+            res.json(result);
+        })
+    })
+
+    app.delete('/todolist/:owner/:id', (req,res)=>{
+        console.log("### DELETE /todolist/:owner/:id");
+        const { owner, id } = req.params;
+        const result = deleteTodo({ owner, id });
         res.json(result);
     })
 
-    app.put('/todolist_long/:owner/:no/done', (req,res)=>{
-        console.log("### PUT /todolist_long/:owner/:no/done");
-        sleep(1000);
-        const { owner, no } = req.params;
-        const result = toggleDone({ owner, no });
-        res.json(result);
-    })
-
-    app.delete('/todolist/:owner/:no', (req,res)=>{
-        console.log("### DELETE /todolist/:owner/:no");
-        const { owner, no } = req.params;
-        const result = deleteTodo({ owner, no });
-        res.json(result);
-    })
-
-    app.delete('/todolist_long/:owner/:no', (req,res)=>{
-        console.log("### DELETE /todolist_long/:owner/:no");
-        sleep(1000);
-        const { owner, no } = req.params;
-        const result = deleteTodo({ owner, no });
-        res.json(result);
+    app.delete('/todolist_long/:owner/:id', (req,res)=>{
+        console.log("### DELETE /todolist_long/:owner/:id");
+        sleep(1000).then(() => { 
+            const { owner, id } = req.params;
+            const result = deleteTodo({ owner, id });
+            res.json(result);
+        })
     })
     
     //----에러 처리 시작

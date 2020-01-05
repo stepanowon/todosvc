@@ -10,7 +10,6 @@ import routes from './routes';
 const app = express();
 
 app.use(cors());
-app.enable("jsonp callback");   //jsonp 지원
 
 app.use(function (req, res, next) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
