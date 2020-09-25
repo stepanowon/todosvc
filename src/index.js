@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors';
+//import cors from 'cors';
 import morgan from 'morgan';
 import path from 'path';
 import fs from 'fs';
@@ -9,7 +9,7 @@ import routes from './routes';
 
 const app = express();
 
-app.use(cors());
+//app.use(cors());
 
 app.use(function (req, res, next) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
