@@ -11,3 +11,5 @@ log
 # Docker
 Dockerfile
 docker-compose.yml
+
+.vercel

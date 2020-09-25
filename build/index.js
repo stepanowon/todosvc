@@ -12,12 +12,11 @@ var _path = _interopRequireDefault(require("path"));
 
 var _fs = _interopRequireDefault(require("fs"));
 
-var _rotatingFileStream = _interopRequireDefault(require("rotating-file-stream"));
-
 var _routes = _interopRequireDefault(require("./routes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+// import rfs from 'rotating-file-stream';
 var app = (0, _express["default"])();
 app.use((0, _cors["default"])());
 app.use(function (req, res, next) {
@@ -27,19 +26,15 @@ app.use(function (req, res, next) {
   next();
 }); //-- 로깅
 
-var baseDir = _path["default"].resolve('.');
+var baseDir = _path["default"].resolve('.'); // const logDirectory = path.join(baseDir, '/log')
+// fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+// var accessLogStream = rfs('access.log', {
+//   interval: '1d', // 매일 매일 로그 파일 생성
+//   path: logDirectory
+// })
+// app.use(morgan('combined', {stream: accessLogStream}))
 
-var logDirectory = _path["default"].join(baseDir, '/log');
 
-_fs["default"].existsSync(logDirectory) || _fs["default"].mkdirSync(logDirectory);
-var accessLogStream = (0, _rotatingFileStream["default"])('access.log', {
-  interval: '1d',
-  // 매일 매일 로그 파일 생성
-  path: logDirectory
-});
-app.use((0, _morgan["default"])('combined', {
-  stream: accessLogStream
-}));
 app.set('port', process.env.PORT || 8000);
 app.use(_express["default"]["static"](baseDir + '/public'));
 console.log(baseDir + '/views');
