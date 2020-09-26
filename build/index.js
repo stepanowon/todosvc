@@ -4,8 +4,6 @@ var _express = _interopRequireDefault(require("express"));
 
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 
-var _cors = _interopRequireDefault(require("cors"));
-
 var _morgan = _interopRequireDefault(require("morgan"));
 
 var _path = _interopRequireDefault(require("path"));
@@ -16,9 +14,10 @@ var _routes = _interopRequireDefault(require("./routes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+//import cors from 'cors';
 // import rfs from 'rotating-file-stream';
-var app = (0, _express["default"])();
-app.use((0, _cors["default"])());
+var app = (0, _express["default"])(); //app.use(cors());
+
 app.use(function (req, res, next) {
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   res.header('Expires', '-1');
@@ -37,7 +36,6 @@ var baseDir = _path["default"].resolve('.'); // const logDirectory = path.join(b
 
 app.set('port', process.env.PORT || 8000);
 app.use(_express["default"]["static"](baseDir + '/public'));
-console.log(baseDir + '/views');
 app.set('views', baseDir + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
