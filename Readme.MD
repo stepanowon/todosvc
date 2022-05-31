@@ -21,5 +21,5 @@ npm run start
 
 ## 이미 설치된 버전을 확인하려면 다음 두곳에서 확인하세요.
 * https://todosvc.herokuapp.com
-* http://sample.bmaster.kro.kr:8000
+* https://todosvc.vercel.app
 
