@@ -36,7 +36,7 @@ var id = new Date().getTime(); // let databaseInitialize= () => {
 // var db = new loki('sample.db', {
 // 	autoload: true,
 // 	autoloadCallback : databaseInitialize,
-// 	autosave: true, 
+// 	autosave: true,
 // 	autosaveInterval: 60000
 // });
 
@@ -44,62 +44,62 @@ var db = new _lokijs["default"]();
 todolist = db.getCollection("todolist");
 
 if (todolist === null) {
-  todolist = db.addCollection('todolist', {
-    indices: ['owner', 'id']
+  todolist = db.addCollection("todolist", {
+    indices: ["owner", "id"]
   });
 }
 
 todolist.insert({
-  owner: 'gdhong',
+  owner: "gdhong",
   id: 123456789,
   todo: "ES6 공부",
   desc: "ES6공부를 해야 합니다",
   done: true
 });
 todolist.insert({
-  owner: 'gdhong',
+  owner: "gdhong",
   id: ++id,
   todo: "Vue 학습",
   desc: "Vue 학습을 해야 합니다",
   done: false
 });
 todolist.insert({
-  owner: 'gdhong',
+  owner: "gdhong",
   id: ++id,
   todo: "놀기",
   desc: "노는 것도 중요합니다.",
   done: true
 });
 todolist.insert({
-  owner: 'gdhong',
+  owner: "gdhong",
   id: ++id,
   todo: "야구장",
   desc: "프로야구 경기도 봐야합니다.",
   done: false
 });
 todolist.insert({
-  owner: 'mrlee',
+  owner: "mrlee",
   id: ++id,
   todo: "남원구경",
   desc: "고향집에 가봐야합니다.",
   done: true
 });
 todolist.insert({
-  owner: 'mrlee',
+  owner: "mrlee",
   id: ++id,
   todo: "저녁약속(10.11)",
   desc: "지인과의 중요한 저녁 약속입니다.",
   done: false
 });
 todolist.insert({
-  owner: 'mrlee',
+  owner: "mrlee",
   id: ++id,
   todo: "AWS 밋업",
   desc: "AWS 밋업에 반드시 참석해야 합니다.",
   done: false
 });
 todolist.insert({
-  owner: 'mrlee',
+  owner: "mrlee",
   id: ++id,
   todo: "AAI 모임",
   desc: "공인강사들 모임이 있습니다.",
@@ -128,7 +128,7 @@ var createNewOwner = function createNewOwner(_ref) {
         owner: owner,
         id: ++_id,
         todo: "Vue 학습",
-        desc: "Vue 학습을 해야 합니다",
+        desc: "React 학습을 해야 합니다",
         done: false
       });
       todolist.insert({
@@ -165,13 +165,13 @@ var getTodoList = function getTodoList(_ref2) {
     var result = [];
     var queryResult = todolist.chain().find({
       owner: owner
-    }).simplesort('id').data();
+    }).simplesort("id").data();
 
     for (var i = 0; i < queryResult.length; i++) {
       var item = _objectSpread({}, queryResult[i]);
 
       delete item.meta;
-      delete item['$loki'];
+      delete item["$loki"];
       delete item.owner;
       result.push(item);
     }
@@ -201,7 +201,7 @@ var getTodoItem = function getTodoItem(_ref3) {
     var item = _objectSpread({}, one);
 
     delete item.meta;
-    delete item['$loki'];
+    delete item["$loki"];
     delete item.owner;
     return item;
   } catch (ex) {
