@@ -34,7 +34,7 @@ var baseDir = _path["default"].resolve('.'); // const logDirectory = path.join(b
 // app.use(morgan('combined', {stream: accessLogStream}))
 
 
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 3000);
 app.use(_express["default"]["static"](baseDir + '/public'));
 app.set('views', baseDir + '/views');
 app.set('view engine', 'ejs');
