@@ -29,7 +29,7 @@ var baseDir = path.resolve('.');
 // })
 // app.use(morgan('combined', {stream: accessLogStream}))
 
-app.set('port', (process.env.PORT || 8000));
+app.set('port', (process.env.PORT || 3000));
 
 app.use(express.static(baseDir + '/public'));
 app.set('views', baseDir + '/views');
