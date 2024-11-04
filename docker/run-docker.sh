@@ -10,4 +10,4 @@ DOCKERFILE_PATH=../Dockerfile
 docker build -t $PROJECT_NAME -f $DOCKERFILE_PATH ..
 
 # Docker 컨테이너 실행
-docker run -d -p 3000:3000 --name $PROJECT_NAME $PROJECT_NAME
+docker run -d -p 8000:8000 --name $PROJECT_NAME $PROJECT_NAME
