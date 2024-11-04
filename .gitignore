@@ -13,3 +13,5 @@ log
 docker-compose.yml
 
 .vercel
+
+build

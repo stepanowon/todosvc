@@ -13,8 +13,11 @@ RUN npm install
 # 앱 소스 코드를 복사
 COPY . .
 
+# 이전 빌드 파일 삭제 및 새로 빌드
+RUN rm -rf build && npm run build
+
 # 서버 실행 포트를 설정
 EXPOSE 8000
 
 # 앱 실행
-CMD ["node", "build/index.js"]
+CMD ["npm", "start"]
