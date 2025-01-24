@@ -15,7 +15,7 @@ var _default = function _default(app) {
   app.get("/", function (req, res) {
     console.log("### GET /");
     res.render("index", {
-      title: "todolist 서비스 v1.0",
+      title: "todolist 사비스 v1.0",
       subtitle: "(node.js + express + lokijs)"
     });
   });
