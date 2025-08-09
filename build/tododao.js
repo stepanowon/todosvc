@@ -4,21 +4,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.updateTodo = exports.toggleDone = exports.getTodoList = exports.getTodoItem = exports.deleteTodo = exports.createNewOwner = exports.addTodo = void 0;
-
 var _lokijs = _interopRequireDefault(require("lokijs"));
-
 var _shortid = _interopRequireDefault(require("shortid"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var todolist;
-var id = new Date().getTime(); // let databaseInitialize= () => {
+var id = new Date().getTime();
+
+// let databaseInitialize= () => {
 //     todolist = db.getCollection("todolist");
 //     if (todolist === null) {
 //         todolist = db.addCollection('todolist', { indices: ['owner','no'] });
@@ -27,12 +25,14 @@ var id = new Date().getTime(); // let databaseInitialize= () => {
 //         todolist.insert( { owner:'gdhong', no:no++, todo:"Vue 학습", desc:"Vue 학습을 해야 합니다", done:false });
 //         todolist.insert( { owner:'gdhong', no:no++, todo:"놀기", desc:"노는 것도 중요합니다.", done:true });
 //         todolist.insert( { owner:'gdhong', no:no++, todo:"야구장", desc:"프로야구 경기도 봐야합니다.", done:false });
+
 //         todolist.insert( { owner:'mrlee', no:no++, todo:"남원구경", desc:"고향집에 가봐야합니다.", done:true });
 //         todolist.insert( { owner:'mrlee', no:no++, todo:"저녁약속(10.11)", desc:"지인과의 중요한 저녁 약속입니다.", done:false });
 //         todolist.insert( { owner:'mrlee', no:no++, todo:"AWS 밋업", desc:"AWS 밋업에 반드시 참석해야 합니다.", done:false });
 //         todolist.insert( { owner:'mrlee', no:no++, todo:"AAI 모임", desc:"공인강사들 모임이 있습니다.", done:true });
 //     }
 // }
+
 // var db = new loki('sample.db', {
 // 	autoload: true,
 // 	autoloadCallback : databaseInitialize,
@@ -42,13 +42,11 @@ var id = new Date().getTime(); // let databaseInitialize= () => {
 
 var db = new _lokijs["default"]();
 todolist = db.getCollection("todolist");
-
 if (todolist === null) {
   todolist = db.addCollection("todolist", {
     indices: ["owner", "id"]
   });
 }
-
 todolist.insert({
   owner: "gdhong",
   id: 123456789,
@@ -105,17 +103,13 @@ todolist.insert({
   desc: "공인강사들 모임이 있습니다.",
   done: true
 });
-
-var createNewOwner = function createNewOwner(_ref) {
+var createNewOwner = exports.createNewOwner = function createNewOwner(_ref) {
   var owner = _ref.owner;
-
   try {
     var queryResult = todolist.find({
       owner: owner
     });
-
     var _id = new Date().getTime();
-
     if (queryResult.length === 0) {
       todolist.insert({
         owner: owner,
@@ -155,27 +149,20 @@ var createNewOwner = function createNewOwner(_ref) {
     };
   }
 };
-
-exports.createNewOwner = createNewOwner;
-
-var getTodoList = function getTodoList(_ref2) {
+var getTodoList = exports.getTodoList = function getTodoList(_ref2) {
   var owner = _ref2.owner;
-
   try {
     var result = [];
     var queryResult = todolist.chain().find({
       owner: owner
     }).simplesort("id").data();
-
     for (var i = 0; i < queryResult.length; i++) {
       var item = _objectSpread({}, queryResult[i]);
-
       delete item.meta;
       delete item["$loki"];
       delete item.owner;
       result.push(item);
     }
-
     return result;
   } catch (ex) {
     return {
@@ -184,22 +171,16 @@ var getTodoList = function getTodoList(_ref2) {
     };
   }
 };
-
-exports.getTodoList = getTodoList;
-
-var getTodoItem = function getTodoItem(_ref3) {
+var getTodoItem = exports.getTodoItem = function getTodoItem(_ref3) {
   var owner = _ref3.owner,
-      id = _ref3.id;
-
+    id = _ref3.id;
   try {
     id = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
       id: id
     });
-
     var item = _objectSpread({}, one);
-
     delete item.meta;
     delete item["$loki"];
     delete item.owner;
@@ -211,19 +192,14 @@ var getTodoItem = function getTodoItem(_ref3) {
     };
   }
 };
-
-exports.getTodoItem = getTodoItem;
-
-var addTodo = function addTodo(_ref4) {
+var addTodo = exports.addTodo = function addTodo(_ref4) {
   var owner = _ref4.owner,
-      todo = _ref4.todo,
-      desc = _ref4.desc;
-
+    todo = _ref4.todo,
+    desc = _ref4.desc;
   try {
     if (todo === null || todo.trim() === "") {
       throw new Error("할일을 입력하셔야 합니다.");
     }
-
     var item = {
       owner: owner,
       id: new Date().getTime(),
@@ -248,20 +224,15 @@ var addTodo = function addTodo(_ref4) {
     };
   }
 };
-
-exports.addTodo = addTodo;
-
-var deleteTodo = function deleteTodo(_ref5) {
+var deleteTodo = exports.deleteTodo = function deleteTodo(_ref5) {
   var owner = _ref5.owner,
-      id = _ref5.id;
-
+    id = _ref5.id;
   try {
     id = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
       id: id
     });
-
     if (one !== null) {
       todolist.remove(one);
       return {
@@ -285,23 +256,18 @@ var deleteTodo = function deleteTodo(_ref5) {
     };
   }
 };
-
-exports.deleteTodo = deleteTodo;
-
-var updateTodo = function updateTodo(_ref6) {
+var updateTodo = exports.updateTodo = function updateTodo(_ref6) {
   var owner = _ref6.owner,
-      id = _ref6.id,
-      todo = _ref6.todo,
-      desc = _ref6.desc,
-      done = _ref6.done;
-
+    id = _ref6.id,
+    todo = _ref6.todo,
+    desc = _ref6.desc,
+    done = _ref6.done;
   try {
     id = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
       id: id
     });
-
     if (one !== null) {
       one.done = done;
       one.todo = todo;
@@ -330,20 +296,15 @@ var updateTodo = function updateTodo(_ref6) {
     };
   }
 };
-
-exports.updateTodo = updateTodo;
-
-var toggleDone = function toggleDone(_ref7) {
+var toggleDone = exports.toggleDone = function toggleDone(_ref7) {
   var owner = _ref7.owner,
-      id = _ref7.id;
-
+    id = _ref7.id;
   try {
     id = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
       id: id
     });
-
     if (one !== null) {
       one.done = !one.done;
       todolist.update(one);
@@ -369,5 +330,3 @@ var toggleDone = function toggleDone(_ref7) {
     };
   }
 };
-
-exports.toggleDone = toggleDone;

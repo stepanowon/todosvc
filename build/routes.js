@@ -4,14 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _tododao = require("./tododao");
-
 var _sleepPromise = _interopRequireDefault(require("sleep-promise"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var _default = function _default(app) {
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var _default = exports["default"] = function _default(app) {
   app.get("/", function (req, res) {
     console.log("### GET /");
     res.render("index", {
@@ -59,8 +55,8 @@ var _default = function _default(app) {
   app.get("/todolist/:owner/:id", function (req, res) {
     console.log("### GET /todolist/:owner/:id");
     var _req$params = req.params,
-        owner = _req$params.owner,
-        id = _req$params.id;
+      owner = _req$params.owner,
+      id = _req$params.id;
     var todoitem = (0, _tododao.getTodoItem)({
       owner: owner,
       id: id
@@ -71,8 +67,8 @@ var _default = function _default(app) {
     console.log("### GET /todolist_long/:owner/:id");
     (0, _sleepPromise["default"])(1000).then(function () {
       var _req$params2 = req.params,
-          owner = _req$params2.owner,
-          id = _req$params2.id;
+        owner = _req$params2.owner,
+        id = _req$params2.id;
       var todoitem = (0, _tododao.getTodoItem)({
         owner: owner,
         id: id
@@ -84,8 +80,8 @@ var _default = function _default(app) {
     console.log("### POST /todolist/:owner");
     var owner = req.params.owner;
     var _req$body = req.body,
-        todo = _req$body.todo,
-        desc = _req$body.desc;
+      todo = _req$body.todo,
+      desc = _req$body.desc;
     var result = (0, _tododao.addTodo)({
       owner: owner,
       todo: todo,
@@ -98,8 +94,8 @@ var _default = function _default(app) {
     (0, _sleepPromise["default"])(1000).then(function () {
       var owner = req.params.owner;
       var _req$body2 = req.body,
-          todo = _req$body2.todo,
-          desc = _req$body2.desc;
+        todo = _req$body2.todo,
+        desc = _req$body2.desc;
       var result = (0, _tododao.addTodo)({
         owner: owner,
         todo: todo,
@@ -111,12 +107,12 @@ var _default = function _default(app) {
   app.put("/todolist/:owner/:id", function (req, res) {
     console.log("### PUT /todolist/:owner/:id");
     var _req$params3 = req.params,
-        owner = _req$params3.owner,
-        id = _req$params3.id;
+      owner = _req$params3.owner,
+      id = _req$params3.id;
     var _req$body3 = req.body,
-        todo = _req$body3.todo,
-        done = _req$body3.done,
-        desc = _req$body3.desc;
+      todo = _req$body3.todo,
+      done = _req$body3.done,
+      desc = _req$body3.desc;
     var result = (0, _tododao.updateTodo)({
       owner: owner,
       id: id,
@@ -130,12 +126,12 @@ var _default = function _default(app) {
     console.log("### PUT /todolist_long/:owner/:id");
     (0, _sleepPromise["default"])(1000).then(function () {
       var _req$params4 = req.params,
-          owner = _req$params4.owner,
-          id = _req$params4.id;
+        owner = _req$params4.owner,
+        id = _req$params4.id;
       var _req$body4 = req.body,
-          todo = _req$body4.todo,
-          done = _req$body4.done,
-          desc = _req$body4.desc;
+        todo = _req$body4.todo,
+        done = _req$body4.done,
+        desc = _req$body4.desc;
       var result = (0, _tododao.updateTodo)({
         owner: owner,
         id: id,
@@ -147,10 +143,10 @@ var _default = function _default(app) {
     });
   });
   app.put("/todolist/:owner/:id/done", function (req, res) {
-    console.log("### PUT /todolist/:owner/:nido/done");
+    console.log("### PUT /todolist/:owner/:id/done");
     var _req$params5 = req.params,
-        owner = _req$params5.owner,
-        id = _req$params5.id;
+      owner = _req$params5.owner,
+      id = _req$params5.id;
     var result = (0, _tododao.toggleDone)({
       owner: owner,
       id: id
@@ -161,8 +157,8 @@ var _default = function _default(app) {
     console.log("### PUT /todolist_long/:owner/:id/done");
     (0, _sleepPromise["default"])(1000).then(function () {
       var _req$params6 = req.params,
-          owner = _req$params6.owner,
-          id = _req$params6.id;
+        owner = _req$params6.owner,
+        id = _req$params6.id;
       var result = (0, _tododao.toggleDone)({
         owner: owner,
         id: id
@@ -173,8 +169,8 @@ var _default = function _default(app) {
   app["delete"]("/todolist/:owner/:id", function (req, res) {
     console.log("### DELETE /todolist/:owner/:id");
     var _req$params7 = req.params,
-        owner = _req$params7.owner,
-        id = _req$params7.id;
+      owner = _req$params7.owner,
+      id = _req$params7.id;
     var result = (0, _tododao.deleteTodo)({
       owner: owner,
       id: id
@@ -185,16 +181,17 @@ var _default = function _default(app) {
     console.log("### DELETE /todolist_long/:owner/:id");
     (0, _sleepPromise["default"])(1000).then(function () {
       var _req$params8 = req.params,
-          owner = _req$params8.owner,
-          id = _req$params8.id;
+        owner = _req$params8.owner,
+        id = _req$params8.id;
       var result = (0, _tododao.deleteTodo)({
         owner: owner,
         id: id
       });
       res.json(result);
     });
-  }); //----에러 처리 시작
+  });
 
+  //----에러 처리 시작
   app.get("*", function (req, res, next) {
     var err = new Error();
     err.status = 404;
@@ -202,7 +199,6 @@ var _default = function _default(app) {
   });
   app.use(function (err, req, res, next) {
     console.log("### ERROR!!");
-
     if (err.status === 404) {
       res.status(404).json({
         status: 404,
@@ -221,5 +217,3 @@ var _default = function _default(app) {
     }
   });
 };
-
-exports["default"] = _default;

@@ -92,7 +92,7 @@ export default (app) => {
   });
 
   app.put("/todolist/:owner/:id/done", (req, res) => {
-    console.log("### PUT /todolist/:owner/:nido/done");
+    console.log("### PUT /todolist/:owner/:id/done");
     const { owner, id } = req.params;
     const result = toggleDone({ owner, id });
     res.json(result);

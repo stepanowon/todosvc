@@ -1,15 +1,15 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-//import cors from 'cors';
-import morgan from 'morgan';
+import cors from 'cors';
+//import morgan from 'morgan';
 import path from 'path';
-import fs from 'fs';
+//import fs from 'fs';
 // import rfs from 'rotating-file-stream';
 import routes from './routes';
 
 const app = express();
 
-//app.use(cors());
+app.use(cors());
 
 app.use(function (req, res, next) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -29,7 +29,7 @@ var baseDir = path.resolve('.');
 // })
 // app.use(morgan('combined', {stream: accessLogStream}))
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 8000));
 
 app.use(express.static(baseDir + '/public'));
 app.set('views', baseDir + '/views');
