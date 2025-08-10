@@ -9,6 +9,9 @@
 ![LokiJS](https://img.shields.io/badge/LokiJS-1.5.12-orange)
 ![License](https://img.shields.io/badge/License-ISC-yellow)
 
+## Demo  
+https://todosvc.bmaster.kro.kr
+
 ## 🚀 기능
 
 - ✅ **할일 관리**: 생성, 조회, 수정, 삭제 (CRUD)
