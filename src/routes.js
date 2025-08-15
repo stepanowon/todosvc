@@ -1,6 +1,7 @@
 import { addTodo, deleteTodo, updateTodo, toggleDone, getTodoItem, getTodoList, createNewOwner } from "./tododao";
 import sleep from "sleep-promise";
 
+// 라우터 함수
 export default (app) => {
   app.get("/", (req, res) => {
     console.log("### GET /");
