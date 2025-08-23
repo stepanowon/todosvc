@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "build/index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/debug",
+            "dest": "/build/index.js"
+        },
+        {
+            "src": "/api-docs/swagger.json",
+            "dest": "/build/index.js"
+        },
+        {
+            "src": "/api-docs",
+            "dest": "/build/index.js"
+        },
+        {
+            "src": "/api-docs/(.*)",
+            "dest": "/build/index.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/build/index.js"
+        }
+    ]
+}
