@@ -17,12 +17,12 @@ app.use(function (_req, res, next) {
 
 const baseDir = path.resolve('.');
 
-app.set('port', (process.env.PORT || 3000));
+const PORT = process.env.PORT || 3000;
+app.set('port', PORT);
 
-app.use(express.static(baseDir + '/public'));
-app.set('views', baseDir + '/views');
+app.use(express.static(path.join(baseDir, 'public')));
+app.set('views', path.join(baseDir, 'views'));
 app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -35,7 +35,6 @@ app.use((err, _req, res, _next) => {
     res.status(500).json({ error: 'Something went wrong!' });
 });
 
-app.listen(app.get('port'), function() {
-    console.log("할일 목록 서비스가 " + app.get('port') + "번 포트에서 시작되었습니다!");
+app.listen(PORT, () => {
+    console.log(`할일 목록 서비스가 ${PORT}번 포트에서 시작되었습니다!`);
 });
-  

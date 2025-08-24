@@ -5,7 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.updateTodo = exports.toggleDone = exports.getTodoList = exports.getTodoItem = exports.deleteTodo = exports.createNewOwner = exports.addTodo = void 0;
 var _lokijs = _interopRequireDefault(require("lokijs"));
-var _shortid = _interopRequireDefault(require("shortid"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -40,6 +39,13 @@ var id = new Date().getTime();
 // 	autosaveInterval: 60000
 // });
 
+var cleanTodoItem = function cleanTodoItem(item) {
+  var cleanItem = _objectSpread({}, item);
+  delete cleanItem.meta;
+  delete cleanItem["$loki"];
+  delete cleanItem.owner;
+  return cleanItem;
+};
 var db = new _lokijs["default"]();
 todolist = db.getCollection("todolist");
 if (todolist === null) {
@@ -47,87 +53,86 @@ if (todolist === null) {
     indices: ["owner", "id"]
   });
 }
-todolist.insert({
-  owner: "gdhong",
-  id: 123456789,
-  todo: "ES6 공부",
-  desc: "ES6공부를 해야 합니다",
-  done: true
-});
-todolist.insert({
-  owner: "gdhong",
-  id: ++id,
-  todo: "Vue 학습",
-  desc: "Vue 학습을 해야 합니다",
-  done: false
-});
-todolist.insert({
-  owner: "gdhong",
-  id: ++id,
-  todo: "놀기",
-  desc: "노는 것도 중요합니다.",
-  done: true
-});
-todolist.insert({
-  owner: "gdhong",
-  id: ++id,
-  todo: "야구장",
-  desc: "프로야구 경기도 봐야합니다.",
-  done: false
-});
-todolist.insert({
-  owner: "mrlee",
-  id: ++id,
-  todo: "남원구경",
-  desc: "고향집에 가봐야합니다.",
-  done: true
-});
-todolist.insert({
-  owner: "mrlee",
-  id: ++id,
-  todo: "저녁약속(10.11)",
-  desc: "지인과의 중요한 저녁 약속입니다.",
-  done: false
-});
-todolist.insert({
-  owner: "mrlee",
-  id: ++id,
-  todo: "AWS 밋업",
-  desc: "AWS 밋업에 반드시 참석해야 합니다.",
-  done: false
-});
-todolist.insert({
-  owner: "mrlee",
-  id: ++id,
-  todo: "AAI 모임",
-  desc: "공인강사들 모임이 있습니다.",
-  done: true
-});
+var initializeDatabase = function initializeDatabase() {
+  var sampleData = [{
+    owner: "gdhong",
+    id: 123456789,
+    todo: "ES6 공부",
+    desc: "ES6공부를 해야 합니다",
+    done: true
+  }, {
+    owner: "gdhong",
+    id: ++id,
+    todo: "Vue 학습",
+    desc: "Vue 학습을 해야 합니다",
+    done: false
+  }, {
+    owner: "gdhong",
+    id: ++id,
+    todo: "놀기",
+    desc: "노는 것도 중요합니다.",
+    done: true
+  }, {
+    owner: "gdhong",
+    id: ++id,
+    todo: "야구장",
+    desc: "프로야구 경기도 봐야합니다.",
+    done: false
+  }, {
+    owner: "mrlee",
+    id: ++id,
+    todo: "남원구경",
+    desc: "고향집에 가봐야합니다.",
+    done: true
+  }, {
+    owner: "mrlee",
+    id: ++id,
+    todo: "저녁약속(10.11)",
+    desc: "지인과의 중요한 저녁 약속입니다.",
+    done: false
+  }, {
+    owner: "mrlee",
+    id: ++id,
+    todo: "AWS 밋업",
+    desc: "AWS 밋업에 반드시 참석해야 합니다.",
+    done: false
+  }, {
+    owner: "mrlee",
+    id: ++id,
+    todo: "AAI 모임",
+    desc: "공인강사들 모임이 있습니다.",
+    done: true
+  }];
+  sampleData.forEach(function (data) {
+    return todolist.insert(data);
+  });
+};
+initializeDatabase();
 var createNewOwner = exports.createNewOwner = function createNewOwner(_ref) {
   var owner = _ref.owner;
   try {
     var queryResult = todolist.find({
       owner: owner
     });
-    var _id = new Date().getTime();
+    var localId = new Date().getTime();
     if (queryResult.length === 0) {
       todolist.insert({
         owner: owner,
-        id: _id,
+        id: localId,
         todo: "ES6 공부",
         desc: "ES6공부를 해야 합니다",
         done: true
       });
       todolist.insert({
         owner: owner,
-        id: ++_id,
+        id: localId + 1,
         todo: "Vue 학습",
         desc: "React 학습을 해야 합니다",
         done: false
       });
       todolist.insert({
         owner: owner,
-        id: ++_id,
+        id: localId + 2,
         todo: "야구장",
         desc: "프로야구 경기도 봐야합니다.",
         done: false
@@ -152,18 +157,10 @@ var createNewOwner = exports.createNewOwner = function createNewOwner(_ref) {
 var getTodoList = exports.getTodoList = function getTodoList(_ref2) {
   var owner = _ref2.owner;
   try {
-    var result = [];
     var queryResult = todolist.chain().find({
       owner: owner
     }).simplesort("id").data();
-    for (var i = 0; i < queryResult.length; i++) {
-      var item = _objectSpread({}, queryResult[i]);
-      delete item.meta;
-      delete item["$loki"];
-      delete item.owner;
-      result.push(item);
-    }
-    return result;
+    return queryResult.map(cleanTodoItem);
   } catch (ex) {
     return {
       status: "fail",
@@ -175,16 +172,18 @@ var getTodoItem = exports.getTodoItem = function getTodoItem(_ref3) {
   var owner = _ref3.owner,
     id = _ref3.id;
   try {
-    id = parseInt(id, 10);
+    var parsedId = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
-      id: id
+      id: parsedId
     });
-    var item = _objectSpread({}, one);
-    delete item.meta;
-    delete item["$loki"];
-    delete item.owner;
-    return item;
+    if (!one) {
+      return {
+        status: "fail",
+        message: "조회 실패 : 데이터가 존재하지 않음"
+      };
+    }
+    return cleanTodoItem(one);
   } catch (ex) {
     return {
       status: "fail",
@@ -197,14 +196,14 @@ var addTodo = exports.addTodo = function addTodo(_ref4) {
     todo = _ref4.todo,
     desc = _ref4.desc;
   try {
-    if (todo === null || todo.trim() === "") {
+    if (!todo || todo.trim() === "") {
       throw new Error("할일을 입력하셔야 합니다.");
     }
     var item = {
       owner: owner,
       id: new Date().getTime(),
-      todo: todo,
-      desc: desc,
+      todo: todo.trim(),
+      desc: desc || "",
       done: false
     };
     todolist.insert(item);
@@ -228,27 +227,26 @@ var deleteTodo = exports.deleteTodo = function deleteTodo(_ref5) {
   var owner = _ref5.owner,
     id = _ref5.id;
   try {
-    id = parseInt(id, 10);
+    var parsedId = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
-      id: id
+      id: parsedId
     });
-    if (one !== null) {
-      todolist.remove(one);
-      return {
-        status: "success",
-        message: "삭제 성공",
-        item: {
-          id: one.id,
-          todo: one.todo
-        }
-      };
-    } else {
+    if (!one) {
       return {
         status: "fail",
         message: "삭제 실패 : 삭제하려는 데이터가 존재하지 않음"
       };
     }
+    todolist.remove(one);
+    return {
+      status: "success",
+      message: "삭제 성공",
+      item: {
+        id: one.id,
+        todo: one.todo
+      }
+    };
   } catch (ex) {
     return {
       status: "fail",
@@ -263,32 +261,31 @@ var updateTodo = exports.updateTodo = function updateTodo(_ref6) {
     desc = _ref6.desc,
     done = _ref6.done;
   try {
-    id = parseInt(id, 10);
+    var parsedId = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
-      id: id
+      id: parsedId
     });
-    if (one !== null) {
-      one.done = done;
-      one.todo = todo;
-      one.desc = desc;
-      todolist.update(one);
-      return {
-        status: "success",
-        message: "할일 변경 성공",
-        item: {
-          id: one.id,
-          todo: one.todo,
-          desc: one.desc,
-          done: one.done
-        }
-      };
-    } else {
+    if (!one) {
       return {
         status: "fail",
         message: "할일 변경 실패 : 변경하려는 데이터가 존재하지 않음"
       };
     }
+    if (todo !== undefined) one.todo = todo.trim();
+    if (desc !== undefined) one.desc = desc;
+    if (done !== undefined) one.done = done;
+    todolist.update(one);
+    return {
+      status: "success",
+      message: "할일 변경 성공",
+      item: {
+        id: one.id,
+        todo: one.todo,
+        desc: one.desc,
+        done: one.done
+      }
+    };
   } catch (ex) {
     return {
       status: "fail",
@@ -300,29 +297,28 @@ var toggleDone = exports.toggleDone = function toggleDone(_ref7) {
   var owner = _ref7.owner,
     id = _ref7.id;
   try {
-    id = parseInt(id, 10);
+    var parsedId = parseInt(id, 10);
     var one = todolist.findOne({
       owner: owner,
-      id: id
+      id: parsedId
     });
-    if (one !== null) {
-      one.done = !one.done;
-      todolist.update(one);
-      return {
-        status: "success",
-        message: "완료 변경 성공",
-        item: {
-          id: one.id,
-          todo: one.todo,
-          done: one.done
-        }
-      };
-    } else {
+    if (!one) {
       return {
         status: "fail",
         message: "완료 변경 실패 : 변경하려는 데이터가 존재하지 않음"
       };
     }
+    one.done = !one.done;
+    todolist.update(one);
+    return {
+      status: "success",
+      message: "완료 변경 성공",
+      item: {
+        id: one.id,
+        todo: one.todo,
+        done: one.done
+      }
+    };
   } catch (ex) {
     return {
       status: "fail",

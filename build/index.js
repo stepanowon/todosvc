@@ -16,11 +16,11 @@ app.use(function (_req, res, next) {
   next();
 });
 var baseDir = _path["default"].resolve('.');
-app.set('port', process.env.PORT || 3000);
-app.use(_express["default"]["static"](baseDir + '/public'));
-app.set('views', baseDir + '/views');
+var PORT = process.env.PORT || 3000;
+app.set('port', PORT);
+app.use(_express["default"]["static"](_path["default"].join(baseDir, 'public')));
+app.set('views', _path["default"].join(baseDir, 'views'));
 app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
 app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: true
@@ -34,6 +34,6 @@ app.use(function (err, _req, res, _next) {
     error: 'Something went wrong!'
   });
 });
-app.listen(app.get('port'), function () {
-  console.log("할일 목록 서비스가 " + app.get('port') + "번 포트에서 시작되었습니다!");
+app.listen(PORT, function () {
+  console.log("\uD560\uC77C \uBAA9\uB85D \uC11C\uBE44\uC2A4\uAC00 ".concat(PORT, "\uBC88 \uD3EC\uD2B8\uC5D0\uC11C \uC2DC\uC791\uB418\uC5C8\uC2B5\uB2C8\uB2E4!"));
 });
