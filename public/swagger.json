@@ -1,0 +1,389 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Todo List API",
+    "description": "간단한 할일목록 RESTful API 서비스입니다."
+  },
+  "host": "todosvc.bmaster.kro.kr",
+  "basePath": "/",
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/todolist/{owner}": {
+      "get": {
+        "summary": "할일 목록 조회",
+        "description": "소유자의 전체 할일 목록을 조회합니다.",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "소유자의 식별자(email 주소, 이름 등의 자신을 나타낼 수 있는 식별자)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "할일 목록 조회 성공",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TodoItem"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "새로운 할일 추가",
+        "description": "새로운 할일을 목록에 추가합니다.",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "소유자 고유 식별자"
+          },
+          {
+            "name": "todo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewTodoItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "할일 추가 성공",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "400": {
+            "description": "잘못된 요청",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/todolist/{owner}/{id}": {
+      "get": {
+        "summary": "특정 할일 조회",
+        "description": "특정 할일 정보 한건을 조회합니다.",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "소유자"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "할일 목록 고유 번호"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "할일 조회 성공",
+            "schema": {
+              "$ref": "#/definitions/TodoItem"
+            }
+          },
+          "404": {
+            "description": "할일을 찾을 수 없음",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "할일 정보 변경",
+        "description": "기존 한건의 할일 정보를 변경합니다.",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "소유자 식별 정보"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "할일 일련 번호"
+          },
+          {
+            "name": "todo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTodoItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "할일 변경 성공",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "400": {
+            "description": "잘못된 요청",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "할일을 찾을 수 없음",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "할일 삭제",
+        "description": "할일 한건을 삭제합니다.",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "소유자 식별 정보"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "할일 일련 번호"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "삭제 성공",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "404": {
+            "description": "할일을 찾을 수 없음",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/todolist/{owner}/{id}/done": {
+      "put": {
+        "summary": "할일 완료 상태 토글",
+        "description": "할일 한건에 대한 done값을 토글 변경합니다.",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "소유자 식별 정보"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "할일 일련 번호"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "완료 변경 성공",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "404": {
+            "description": "할일을 찾을 수 없음",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/todolist/{owner}/create": {
+      "get": {
+        "summary": "샘플 할일 생성",
+        "description": "새로운 owner를 위한 샘플 할일 3건을 생성합니다.",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "소유자"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "샘플 데이터 생성 성공",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "400": {
+            "description": "생성 실패",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "사용자 정보 조회",
+        "description": "사용자 정보를 조회합니다. (3초 지연시간 후 응답)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "사용자 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "사용자 정보 조회 성공",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TodoItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "할일 고유 번호"
+        },
+        "todo": {
+          "type": "string",
+          "description": "할일 내용"
+        },
+        "desc": {
+          "type": "string",
+          "description": "할일에 대한 설명"
+        },
+        "done": {
+          "type": "boolean",
+          "description": "완료 여부"
+        }
+      },
+      "required": ["id", "todo", "desc", "done"]
+    },
+    "NewTodoItem": {
+      "type": "object",
+      "properties": {
+        "todo": {
+          "type": "string",
+          "description": "할일 내용"
+        },
+        "desc": {
+          "type": "string",
+          "description": "할일에 대한 설명"
+        }
+      },
+      "required": ["todo", "desc"]
+    },
+    "UpdateTodoItem": {
+      "type": "object",
+      "properties": {
+        "todo": {
+          "type": "string",
+          "description": "할일 내용"
+        },
+        "desc": {
+          "type": "string",
+          "description": "할일에 대한 설명"
+        },
+        "done": {
+          "type": "boolean",
+          "description": "완료 여부"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "사용자 ID"
+        },
+        "userid": {
+          "type": "string",
+          "description": "사용자 아이디"
+        },
+        "username": {
+          "type": "string",
+          "description": "사용자 이름"
+        }
+      },
+      "required": ["id", "userid", "username"]
+    },
+    "SuccessResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["success"]
+        },
+        "message": {
+          "type": "string"
+        },
+        "item": {
+          "type": "object"
+        }
+      },
+      "required": ["status", "message"]
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["fail"]
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": ["status", "message"]
+    }
+  }
+}
