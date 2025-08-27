@@ -6,7 +6,10 @@
   "scripts": {
     "start:dev": "npx nodemon --exec babel-node src/index.js",
     "build": "babel src -d build",
-    "start": "node build/index.js"
+    "start": "node build/index.js",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +18,9 @@
     "@babel/core": "^7.26.0",
     "@babel/node": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
-    "nodemon": "^3.1.7"
+    "@vitest/ui": "^3.2.4",
+    "nodemon": "^3.1.7",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "chokidar": "^4.0.1",
